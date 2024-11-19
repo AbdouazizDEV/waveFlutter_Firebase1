@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/login_controller.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginView extends GetView<LoginController> {
   const LoginView({Key? key}) : super(key: key);
@@ -31,6 +33,7 @@ class LoginView extends GetView<LoginController> {
                   border: OutlineInputBorder(),
                 ),
               ),
+               
               const SizedBox(height: 20),
               SizedBox(
                 width: double.infinity,
@@ -42,6 +45,24 @@ class LoginView extends GetView<LoginController> {
                   child: controller.isLoading.value
                       ? const CircularProgressIndicator()
                       : const Text('Envoyer le code'),
+                ),
+              ),
+              ElevatedButton.icon(
+                onPressed: () => controller.signInWithGoogle(),
+                icon: Icon(Icons.g_mobiledata),
+                label: Text('Se connecter avec Google'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  foregroundColor: Colors.black,
+                ),
+              ),
+              ElevatedButton.icon(
+                onPressed: () => controller.signInWithFacebook(),
+                icon: Icon(Icons.facebook),
+                label: Text('Se connecter avec Facebook'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue[900],
+                  foregroundColor: Colors.white,
                 ),
               ),
             ] else ...[
@@ -79,6 +100,7 @@ class LoginView extends GetView<LoginController> {
                 },
                 child: const Text('Changer de numéro'),
               ),
+             
             ],
           ],
         )),

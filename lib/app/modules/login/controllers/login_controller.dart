@@ -26,7 +26,26 @@ class LoginController extends GetxController {
       isLoading.value = false;
     }
   }
-
+Future<void> signInWithGoogle() async {
+  try {
+    final credential = await _authService.signInWithGoogle();
+    if (credential != null) {
+      Get.offAllNamed('/home');
+    }
+  } catch (e) {
+    Get.snackbar('Erreur', e.toString());
+  }
+}
+Future<void> signInWithFacebook() async {
+  try {
+    final credential = await _authService.signInWithFacebook();
+    if (credential != null) {
+      Get.offAllNamed('/home');
+    }
+  } catch (e) {
+    Get.snackbar('Erreur', e.toString());
+  }
+}
   Future<void> verifyCode() async {
     if (verificationCode.value.length != 6) {
       Get.snackbar('Erreur', 'Le code doit contenir 6 chiffres');
